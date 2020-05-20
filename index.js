@@ -15,17 +15,20 @@ for (let i = 0; i < word.length; i++) {
 }
 
 let remainingLetters = word.length;
+let attempt = 5;
 
-while (remainingLetters > 0) {
+while (remainingLetters > 0 && attempt > 0) {
     alert(answerArray.join(" "));
-    const guess = prompt('Вгадайте букву або нажміть Відміна для виходу з гри.');
+    let guess = prompt('Вгадайте букву або нажміть Відміна для виходу з гри.');
     if (guess === null) {
         break;
     } else if (guess.length !== 1) {
         alert('Буть ласка введіть тільки одну букву.');
     } else {
+        attempt--;
+        guess = guess.toLowerCase();
         for (let j = 0; j < word.length; j++) {
-            if (word[j] === guess) {
+            if (word[j] === guess && answerArray[j] === '_') {
                 answerArray[j] = guess;
                 remainingLetters--;
             }
@@ -34,4 +37,8 @@ while (remainingLetters > 0) {
 }
 
 alert(answerArray.join(' '));
-alert('Супер! Було загадане слово ' + word);
+    if (attempt > 0) {
+      alert("Супер! Було загадане слово " + word.toUpperCase());
+    } else {
+      alert("Ви програли! Було загадане слово " + word.toUpperCase());
+    }
